@@ -1,7 +1,7 @@
 conn = new Mongo();
 db = conn.getDB("facebook-clone");
 db.createUser({
-  user: "writer",
+  user: process.env["MONGODB_USERNAME"],
   pwd: process.env["MONGODB_PASSWORD"],
   roles: [
     {
