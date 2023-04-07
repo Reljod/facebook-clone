@@ -3,22 +3,23 @@ services:
   mongodb_container:
     container_name: mongodb
     image: mongo:latest
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+    env_file:
+      - ./config/dev.env
+      - .env.creds.local
     ports:
       - 27017:27017
     volumes:
       - mongodb_data_container:/data/db
+      - ./mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
 
   feed_service:
     platform: linux/x86_64
     build:
       context: ./feedservice
       dockerfile: Dockerfile
-    environment:
-      MONGODB_USERNAME: feed-user
-      MONGODB_PASSWORD: ${MONGODB_FEED_PASSWORD}
+    env_file:
+      - ./config/dev.env
+      - .env.creds.local
     ports:
       - 8080:8080
     depends_on:
