@@ -3,12 +3,14 @@ package com.facebook.feedservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -43,6 +45,17 @@ public class FeedServiceController {
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by(direction.equals("asc") ?
                 Sort.Order.asc(sort) : Sort.Order.desc(sort)));
         return ResponseEntity.ok(feedRepository.findAllByUserId(userId, pageRequest).getContent());
+    }
+
+    @DeleteMapping("/{feedId}")
+    public ResponseEntity<?> deleteFeedByFeedId(@PathVariable String feedId) {
+        Optional<Feed> optionalFeed = feedRepository.findById(feedId);
+        if (optionalFeed.isPresent()) {
+            feedRepository.delete(optionalFeed.get());
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Feed not found");
+        }
     }
 }
 
