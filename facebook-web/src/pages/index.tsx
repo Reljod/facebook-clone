@@ -10,6 +10,8 @@ import {
   MdOutlineMoreHoriz,
   MdSearch,
 } from "react-icons/md";
+import CreateFeedContent from "./components/home/create-feed/CreateFeedContent";
+import ProfileIcon from "./components/shared/ProfileIcon";
 
 export default function Home() {
   const [user, _setUser] = useState({
@@ -35,7 +37,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/facebook-icon.png" />
       </Head>
-      <main className="bg-black overflow-y-scroll">
+      <main id="main" className="bg-black overflow-y-scroll">
         <section
           id="header"
           className="flex flex-row justify-between py-2 bg-dark-section-color border-b border-b-gray-700"
@@ -91,12 +93,7 @@ export default function Home() {
             >
               <MdNotifications />
             </div>
-            <div
-              id="profile-btn"
-              className="flex items-center justify-center w-10 h-10 rounded-full ml-2 bg-red-500 text-white"
-            >
-              P
-            </div>
+            <ProfileIcon />
           </div>
         </section>
         <section id="body" className="mt-6 min-w-full">
@@ -152,46 +149,10 @@ export default function Home() {
             </div>
           </section>
           <section id="create-feed" className="bg-dark-section-color p-3 mt-5">
-            <div id="create-feed-content">
-              <div className="flex">
-                <div
-                  id="content-profile-btn"
-                  className="flex items-center justify-center w-10 h-10 rounded-full ml-2 bg-red-500 text-white"
-                >
-                  P
-                </div>
-                <input
-                  placeholder={`What's on your mind, ${user.firstName}?`}
-                  className="flex flex-1 bg-[#353535] rounded-3xl ml-2 px-3 placeholder:text-gray-400 placeholder:font-light"
-                ></input>
-              </div>
-              <div className="flex mt-3 border-t border-t-gray-700 text-gray-400 px-4">
-                <div
-                  id="create-feed-live-video"
-                  className="flex flex-1 items-center p-2"
-                >
-                  <div
-                    id="create-feed-live-video-icon"
-                    className="flex items-center justify-center w-10 h-10 rounded-full mx-2 bg-red-500 text-white"
-                  >
-                    L
-                  </div>
-                  <p className="font-medium">Live video</p>
-                </div>
-                <div
-                  id="create-feed-photo-video"
-                  className="flex flex-1 items-center p-2"
-                >
-                  <div
-                    id="create-feed-photo-video-icon"
-                    className="flex items-center justify-center w-10 h-10 rounded-full mx-2 bg-green-500 text-white"
-                  >
-                    P
-                  </div>
-                  <p className="font-medium">Photo/video</p>
-                </div>
-              </div>
-            </div>
+            <CreateFeedContent
+              firstName={user.firstName}
+              lastName={user.lastName}
+            />
           </section>
           <section id="feeds" className="mt-5">
             <div id="feed-1" className="h-[800px] bg-dark-section-color">

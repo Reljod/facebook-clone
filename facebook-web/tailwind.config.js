@@ -13,10 +13,12 @@ module.exports = {
       colors: {
         dark: {
           "section-color": "#242526",
+          "icon-color": "#393A3B",
+          "disable-btn-color": "#505151"
         }
       }
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 }
 
